@@ -1,8 +1,7 @@
 #container {
   display: grid;
-  /* background-color: aqua; */
   grid-template-columns: 1fr 10fr 1fr;
-  grid-template-rows: 1fr 3fr 7fr 3fr 1fr;
+  grid-template-rows: 1fr 5fr 5fr 5fr 1fr;
   grid-template-areas: ". . ."
                        ". hd ."
                        ". bd ."
@@ -17,7 +16,7 @@
   grid-area: hd;
 }
 
-#body {
+#body-content {
   background-color: cornflowerblue;
   display: grid;
   grid-area: bd;
