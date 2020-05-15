@@ -31,22 +31,22 @@ function checkQuizName() {
     else {
         bodyContent.innerHTML = '<form id="inputQuestionForm" name="inputQuestionForm" onsubmit="return false">' +
                                     '<label for="question">Enter a question:</label><br>' +
-                                    '<input type="text" id="question" name="question"><br><br>'
-                                    '<p id="errorBoxQuestion" name="errorBoxQuestion"></p>'
+                                    '<input type="text" id="question" name="question"><br><br>' +
+                                    '<p id="errorBoxQuestion" name="errorBoxQuestion"></p>' +
 
-                                    '<label for="options">Options:</label>'
-                                    '<fieldset id="options">'
-                                        '<label for="textOpt1">A.</label><input type="text" id="textOpt1" name="textOpt1"><input type="checkbox" id="checkOpt1" name="checkOpt1"><br>'
-                                        '<label for="textOpt2">B.</label><input type="text" id="textOpt2" name="textOpt2"><input type="checkbox" id="checkOpt2" name="checkOpt2"><br>'
-                                        <label for="textOpt3">C.</label><input type="text" id="textOpt3" name="textOpt3"><input type="checkbox" id="checkOpt3" name="checkOpt3"><br>
-                                        <label for="textOpt4">D.</label><input type="text" id="textOpt4" name="textOpt4"><input type="checkbox" id="checkOpt4" name="checkOpt4"><br>
-                                    '</fieldset>'
+                                    '<label for="options">Options:</label>' +
+                                    '<fieldset id="options">' +
+                                        '<label for="textOpt1">A.</label><input type="text" id="textOpt1" name="textOpt1"><input type="checkbox" id="checkOpt1" name="checkOpt1"><br>' +
+                                        '<label for="textOpt2">B.</label><input type="text" id="textOpt2" name="textOpt2"><input type="checkbox" id="checkOpt2" name="checkOpt2"><br>' +
+                                        '<label for="textOpt3">C.</label><input type="text" id="textOpt3" name="textOpt3"><input type="checkbox" id="checkOpt3" name="checkOpt3"><br>' +
+                                        '<label for="textOpt4">D.</label><input type="text" id="textOpt4" name="textOpt4"><input type="checkbox" id="checkOpt4" name="checkOpt4"><br>' +
+                                    '</fieldset>' +
 
-                                    '<p id="errorBoxAnswers" name="errorBoxAnswers"></p><br>'
+                                    '<p id="errorBoxAnswers" name="errorBoxAnswers"></p><br>' +
 
-                                    <button type="submit" id="inputQuestion--continue" name="inputQuestion--continue" onclick="checkQuestionInput()">Add another question</button>
-                                    <button type="submit" id="inputQuestion--end" name="inputQuestion--end" onclick="endQuestionInput()">End Questions Input</button>
-                                '</form>'
+                                    '<button type="submit" id="inputQuestion--continue" name="inputQuestion--continue" onclick="checkQuestionInput()">Add another question</button>' +
+                                    '<button type="submit" id="inputQuestion--end" name="inputQuestion--end" onclick="endQuestionInput()">End Questions Input</button>' +
+                                '</form>' 
     }
 }
 
