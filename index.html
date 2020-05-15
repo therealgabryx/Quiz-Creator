@@ -1,67 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
-    <title>JS Example</title>
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossorigin="anonymous"
-    />
-    <script type="text/javascript" src="app.js"></script>
-  </head>
 
-  <body>
-    <div id="container">
-        <div id="heading">
-            <h1>Quiz Creator</h1>
-        </div>
-        <div id="body-content">
-            <!-- 
-              createQuiz
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>JS Example</title>
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <script type="text/javascript" src="app.js"></script>
+</head>
 
-              <button id="createQuiz" name="createQuiz" onclick="createQuiz()">Create a Quiz</button>
-            <button id="takeQuiz" name="takeQuiz" disabled>Take a Quiz</button> -->
-
-            <!-- 
-              enter Name
-              
-              <form id="quizNameForm" name="quizNameForm" onsubmit="return false"><br>
-              <label for="quizName">Enter a quiz name:</label><br>
-              <input type="text" id="quizName" name="quizName"><br><br>
-              <p id="errorBox" name="errorBox"></p><br>
-              <button type="submit" id="insertName--continue" name="insertName--continue" onclick="checkQuizName()">Continue</button>
-            </form>-->
-            
-            <form id="inputQuestionForm" name="inputQuestionForm" onsubmit="return false">
-              <label for="question">Enter a question:</label><br>
-              <input type="text" id="question" name="question"><br><br>
-              <p id="errorBoxQuestion" name="errorBoxQuestion"></p>
-
-              <label for="options">Options:</label>
-              <fieldset id="options">
-                  <label for="textOpt1">A.</label><input type="text" id="textOpt1" name="textOpt1"><input type="checkbox" id="checkOpt1" name="checkOpt1"><br>
-                  <label for="textOpt2">B.</label><input type="text" id="textOpt2" name="textOpt2"><input type="checkbox" id="checkOpt2" name="checkOpt2"><br>
-                  <label for="textOpt3">C.</label><input type="text" id="textOpt3" name="textOpt3"><input type="checkbox" id="checkOpt3" name="checkOpt3"><br>
-                  <label for="textOpt4">D.</label><input type="text" id="textOpt4" name="textOpt4"><input type="checkbox" id="checkOpt4" name="checkOpt4"><br>
-              </fieldset>
-
-              <p id="errorBoxAnswers" name="errorBoxAnswers"></p><br>
-
-              <button type="submit" id="inputQuestion--continue" name="inputQuestion--continue" onclick="checkQuestionInput()">Add another question</button>
-              <button type="submit" id="inputQuestion--end" name="inputQuestion--end" onclick="endQuestionInput()">End Questions Input</button>
-            </form>
-
-            </div> 
-        <div id="footer">
-          
-        </div>
+<body>
+  <div id="container">
+    <div id="heading">
+      <h1>Quiz Creator</h1>
     </div>
-  </body>
+    <div id="body-content">
+
+      <button id="createQuiz" name="createQuiz" onclick="createQuiz()">Create a Quiz</button>
+      <button id="takeQuiz" name="takeQuiz" disabled>Take a Quiz</button>
+
+    </div>
+    <div id="footer">
+    </div>
+  </div>
+</body>
+
 </html>
