@@ -1,9 +1,8 @@
 // DOM generated content -- to implement afterwards
 // remembr: onload="firstLoad()" >> on body
 
-
-
-
+var quizzes = []
+var quizCount = 0
 
 function createQuiz() {
     const heading = document.getElementById('heading')
@@ -29,7 +28,12 @@ function checkQuizName() {
         document.getElementById('errorBox').innerHTML = 'insert a valid name'
     }
     else {
-        bodyContent.innerHTML = '<form id="inputQuestionForm" name="inputQuestionForm" onsubmit="return false">' +
+        // save quiz name
+        console.log('quizName:', document.getElementById('quizName').value) 
+        saveQuizName(quizName)
+        //
+        bodyContent.innerHTML = `<h5><span>Quiz: </span><span id="quizName">${quizName}</span></h5>` +
+                                '<form id="inputQuestionForm" name="inputQuestionForm" onsubmit="return false">' +
                                     '<label for="question">Enter a question:</label><br>' +
                                     '<input type="text" id="question" name="question"><br><br>' +
                                     '<p id="errorBoxQuestion" name="errorBoxQuestion"></p>' +
@@ -50,6 +54,16 @@ function checkQuizName() {
     }
 }
 
+function saveQuizName(quizName) {
+    var questionsArray = []
+    var quiz = {name: quizName, questions: questionsArray}
+
+    quizzes[quizCount] = quiz
+        quizCount++;
+
+    console.log(quizzes)
+}
+
 function checkQuestionInput() {
     const heading = document.getElementById('heading')
     const bodyContent = document.getElementById('body-content')
@@ -68,9 +82,28 @@ function checkQuestionInput() {
     }
     else {
         // save question data
+        saveQuestionData()
         // rewrite question input
         bodyContent.innerHTML = 'question oke'
     } 
+}
+
+function saveQuestionData() {
+    const question = inputQuestionForm.question.value
+
+    var options = []
+    options[0] = inputQuestionForm.textOpt1.value
+    options[1] = inputQuestionForm.textOpt2.value
+    options[2] = inputQuestionForm.textOpt3.value
+    options[3] = inputQuestionForm.textOpt4.value
+
+    var checks = []
+    checks[0] = inputQuestionForm.checkOpt1.checked
+    checks[1] = inputQuestionForm.checkOpt2.checked
+    checks[2] = inputQuestionForm.checkOpt3.checked
+    checks[3] = inputQuestionForm.checkOpt4.checked
+
+    console.log(question, options, checks)
 }
 
 function checkOptChecked() {
