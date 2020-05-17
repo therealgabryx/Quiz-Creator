@@ -3,8 +3,10 @@
 
 var quizzes = []
 var quizCount = 0
+var questionsTempCount = 0;
 
 function createQuiz() {
+    questionsTempCount = 0;
     const heading = document.getElementById('heading')
     const bodyContent = document.getElementById('body-content')
     const footer = document.getElementById('footer')
@@ -31,10 +33,11 @@ function checkQuizName() {
         // save quiz name
         console.log('quizName:', document.getElementById('quizName').value) 
         saveQuizName(quizName)
-        //
+
+        // write insert question 1
         bodyContent.innerHTML = `<h5><span>Quiz: </span><span id="quizName">${quizName}</span></h5>` +
                                 '<form id="inputQuestionForm" name="inputQuestionForm" onsubmit="return false">' +
-                                    '<label for="question">Enter a question:</label><br>' +
+                                    `<label for="question">Enter question [${questionsTempCount + 1}]:</label><br>` +
                                     '<input type="text" id="question" name="question"><br><br>' +
                                     '<p id="errorBoxQuestion" name="errorBoxQuestion"></p>' +
 
@@ -56,12 +59,12 @@ function checkQuizName() {
 
 function saveQuizName(quizName) {
     var questionsArray = []
-    var quiz = {name: quizName, questions: questionsArray}
+    var quiz = {quizName: quizName, questions: questionsArray, length: 0}
 
-    quizzes[quizCount] = quiz
-        quizCount++;
+    quizzes[quizCount] = quiz;
+    quizCount++;
 
-    console.log(quizzes)
+    console.log("quizzes: ", quizzes)
 }
 
 function checkQuestionInput() {
@@ -81,15 +84,33 @@ function checkQuestionInput() {
         document.getElementById('errorBoxAnswers').innerHTML = 'mark (one) correct answer'
     }
     else {
-        // save question data
         saveQuestionData()
+
         // rewrite question input
-        bodyContent.innerHTML = 'question oke'
+        bodyContent.innerHTML = `<h5><span>Quiz: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5>` +
+                                '<form id="inputQuestionForm" name="inputQuestionForm" onsubmit="return false">' +
+                                    `<label for="question">Enter question [${questionsTempCount + 1}]:</label><br>` +
+                                    '<input type="text" id="question" name="question"><br><br>' +
+                                    '<p id="errorBoxQuestion" name="errorBoxQuestion"></p>' +
+
+                                    '<label for="options">Options:</label>' +
+                                    '<fieldset id="options">' +
+                                        '<label for="textOpt1">A.</label><input type="text" id="textOpt1" name="textOpt1"><input type="checkbox" id="checkOpt1" name="checkOpt1"><br>' +
+                                        '<label for="textOpt2">B.</label><input type="text" id="textOpt2" name="textOpt2"><input type="checkbox" id="checkOpt2" name="checkOpt2"><br>' +
+                                        '<label for="textOpt3">C.</label><input type="text" id="textOpt3" name="textOpt3"><input type="checkbox" id="checkOpt3" name="checkOpt3"><br>' +
+                                        '<label for="textOpt4">D.</label><input type="text" id="textOpt4" name="textOpt4"><input type="checkbox" id="checkOpt4" name="checkOpt4"><br>' +
+                                    '</fieldset>' +
+
+                                    '<p id="errorBoxAnswers" name="errorBoxAnswers"></p><br>' +
+
+                                    '<button type="submit" id="inputQuestion--continue" name="inputQuestion--continue" onclick="checkQuestionInput()">Add another question</button>' +
+                                    '<button type="submit" id="inputQuestion--end" name="inputQuestion--end" onclick="endQuestionInput()">End Questions Input</button>' +
+                                '</form>' 
     } 
 }
 
 function saveQuestionData() {
-    const question = inputQuestionForm.question.value
+    const questionText = inputQuestionForm.question.value
 
     var options = []
     options[0] = inputQuestionForm.textOpt1.value
@@ -103,7 +124,12 @@ function saveQuestionData() {
     checks[2] = inputQuestionForm.checkOpt3.checked
     checks[3] = inputQuestionForm.checkOpt4.checked
 
-    console.log(question, options, checks)
+    var question = {questionText: questionText, options: options, checks: checks}
+
+    quizzes[quizCount - 1].questions[questionsTempCount] = question;
+    quizzes[quizCount - 1].length++
+    questionsTempCount++;
+    console.log(quizzes)
 }
 
 function checkOptChecked() {
@@ -136,8 +162,30 @@ function endQuestionInput() {
         document.getElementById('errorBoxAnswers').innerHTML = 'mark (one) correct answer'
     }
     else {
-        // save question data
+        // save question dataù
+        saveQuestionData()
+
         // show questions recap
-        bodyContent.innerHTML = 'question oke -- recap'
+        bodyContent.innerHTML = `<h5><span>Quiz Recap</span><br><br><span>Quiz Name: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5><br>`
+
+        for (var i = 0; i < quizzes[quizCount -1].length; i++) {
+            bodyContent.innerHTML += `<fieldset id="question${i + 1}"> 
+                                        <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend>
+                                        <label for="textOpt1">A.</label><span id="textOpt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
+                                        <label for="textOpt2">B.</label><span id="textOpt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
+                                        <label for="textOpt3">C.</label><span id="textOpt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
+                                        <label for="textOpt4">D.</label><span id="textOpt4"> ${quizzes[quizCount - 1].questions[i].options[3]}</span><br>
+                                    </fieldset><br>`
+        }
+
+        bodyContent.innerHTML += '<button type="button" onclick="takeQuiz()">Take Quiz</button>'
     } 
+}
+
+function takeQuiz() {
+    const heading = document.getElementById('heading')
+    const bodyContent = document.getElementById('body-content')
+    const footer = document.getElementById('footer')
+
+    bodyContent.innerHTML = `<h5><span>Taking Quiz: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5><br>`
 }
