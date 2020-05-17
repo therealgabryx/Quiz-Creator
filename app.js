@@ -187,27 +187,111 @@ function takeQuiz() {
     const bodyContent = document.getElementById('body-content')
     const footer = document.getElementById('footer')
 
-    bodyContent.innerHTML = `<h5><span>Taking Quiz: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5><br>`
+    bodyContent.innerHTML = `<span id="quizNameTitle"><h5><span>Taking Quiz: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5></span><br>`
 
     for (var i = 0; i < quizzes[quizCount -1].length; i++) {
         bodyContent.innerHTML += `<fieldset id="question${i + 1}"> 
-                                    <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend>
-                                    <input type="checkbox" id="checkOpt1"><label for="opt1">A.</label><span id="opt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
-                                    <input type="checkbox" id="checkOpt2"><label for="opt2">B.</label><span id="opt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
-                                    <input type="checkbox" id="checkOpt3"><label for="opt3">C.</label><span id="opt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
-                                    <input type="checkbox" id="checkOpt4"><label for="opt4">D.</label><span id="opt4"> ${quizzes[quizCount - 1].questions[i].options[3]}</span><br>
+                                    <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend><br><span id="isCorrect"></span><br>
+                                    <input type="checkbox" id="checkOpt1Q${i + 1}"><label for="opt1">A.</label><span id="opt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
+                                    <input type="checkbox" id="checkOpt2Q${i + 1}"><label for="opt2">B.</label><span id="opt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
+                                    <input type="checkbox" id="checkOpt3Q${i + 1}"><label for="opt3">C.</label><span id="opt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
+                                    <input type="checkbox" id="checkOpt4Q${i + 1}"><label for="opt4">D.</label><span id="opt4"> ${quizzes[quizCount - 1].questions[i].options[3]}</span><br>
                                 </fieldset>
                                 <p id="errorBox${i + 1}"></p><br>`
-    }
+    }   
 
-    bodyContent.innerHTML += '<button type="button" onclick="validateAnswers()">Check Answers</button>'
+    bodyContent.innerHTML += '<span id="buttonCheck"><button type="button" onclick="validateAnswers()">Check Answers</button><span>'
 }
 
 function validateAnswers() {
+    if (checkIfCorrectSelection()) { // If only 1 answer per question is selected 
+        blankErrorBoxes(); // voids all error boxes 
+        disableCheckBoxes();
+        checkCorrectAnswers();
+    }
+    // check that all checkboxes have only (1) option selected --> disable all checkboxes & say which answers are correct
+}
+
+function checkCorrectAnswers() {
     const heading = document.getElementById('heading')
     const bodyContent = document.getElementById('body-content')
     const footer = document.getElementById('footer')
 
-    bodyContent.innerHTML = 'vibe checkk'
-    // disable all checkboxes & say which answers are correct
+
+
+    var correctAnswers = 0, wrongAnswers = 0;
+
+    document.getElementById('quizNameTitle').innerHTML = `<h5><span>Quiz Results</span><br><br><span>Quiz Name: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5>`
+    document.getElementById('buttonCheck').innerHTML = <button type="button" onclick="endQuiz()">End Quiz</button>
+}
+
+function endQuiz() {
+    const heading = document.getElementById('heading')
+    const bodyContent = document.getElementById('body-content')
+    const footer = document.getElementById('footer')
+
+    bodyContent.innerHTML = 'Quiz ended :D'
+}
+
+function disableCheckBoxes() {
+    for (let i = 0; i < quizzes[quizCount -1].length; i++) {
+        document.getElementById(`checkOpt1Q${i + 1}`).disabled = true
+        document.getElementById(`checkOpt2Q${i + 1}`).disabled = true
+        document.getElementById(`checkOpt3Q${i + 1}`).disabled = true
+        document.getElementById(`checkOpt4Q${i + 1}`).disabled = true
+    }   
+}
+
+function blankErrorBoxes() {
+    for (let i = 0; i < quizzes[quizCount -1].length; i++) {
+        document.getElementById(`errorBox${i + 1}`).innerHTML = ''
+    }   
+}
+
+function checkIfCorrectSelection() {
+    // Check that only 1 answer per question is selected --> else: SIGNAL in error box & ret. false
+
+    var selections = []
+
+    for (let i = 0; i < quizzes[quizCount -1].length; i++) {
+        if (checkFieldsetSelection(i)) {
+            selections[i] = true;
+        } else {
+            selections[i] = false;
+        }
+    }   
+
+    console.log("selections: ", selections)
+
+    var rtn = false
+
+    var falseCount = 0;
+    for (let i = 0; i < selections.length; i++) {
+        if (selections[i] == false) { falseCount++ }
+    }
+
+    if (falseCount == 0) { console.log("Eval: TRUE"); rtn = true; } else { console.log("Eval: FALSE"); }
+
+    return rtn;
+}
+
+function checkFieldsetSelection(i) {
+
+    var checkedCount = 1;
+        if (document.getElementById(`checkOpt1Q${i + 1}`).checked) { checkedCount++ }
+        if (document.getElementById(`checkOpt2Q${i + 1}`).checked) { checkedCount++ }
+        if (document.getElementById(`checkOpt3Q${i + 1}`).checked) { checkedCount++ }
+        if (document.getElementById(`checkOpt4Q${i + 1}`).checked) { checkedCount++ }
+        if(checkedCount == 2) { 
+            checkedCount = 0 
+        } else {
+            document.getElementById(`errorBox${i + 1}`).innerHTML = '<span style="color:red;">select (one) option</span>'
+        }
+
+    var rtn = false;
+    if (checkedCount == 0) {
+        rtn = true;
+    }
+    
+    return rtn;
 }
