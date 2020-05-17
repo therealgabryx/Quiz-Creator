@@ -230,12 +230,15 @@ function checkCorrectAnswers() {
 function calcPoints() { 
     var correctAnswers = 0
 
-    for (let i = 0; i < quizzes[quizCount -1].length; i++) {
-        if ((document.getElementById(`checkOpt1Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[0])) { correctAnswers++ }
-        if ((document.getElementById(`checkOpt2Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[1])) { correctAnswers++ }
-        if ((document.getElementById(`checkOpt3Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[2])) { correctAnswers++ }
-        if ((document.getElementById(`checkOpt4Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[3])) { correctAnswers++ }  
+    for (let i = 0; i < quizzes[quizCount -1].length; i++) {ù
+        let correctAnswersCount = 0
+        if ((document.getElementById(`checkOpt1Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[0])) { correctAnswers++; correctAnswersCount++ }
+        if ((document.getElementById(`checkOpt2Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[1])) { correctAnswers++; correctAnswersCount++ }
+        if ((document.getElementById(`checkOpt3Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[2])) { correctAnswers++; correctAnswersCount++ }
+        if ((document.getElementById(`checkOpt4Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[3])) { correctAnswers++; correctAnswersCount++ }  
         
+        console.log(`quest: ${i + 1}`, correctAnswersCount)
+
         if (correctAnswers) {
             document.getElementById(`isCorrect${i + 1}`).innerHTML = '<span style="color:green;">✔ CORRECT ✔</span><br>'
         } else {
