@@ -171,10 +171,10 @@ function endQuestionInput() {
         for (var i = 0; i < quizzes[quizCount -1].length; i++) {
             bodyContent.innerHTML += `<fieldset id="question${i + 1}"> 
                                         <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend>
-                                        <label for="textOpt1">A.</label><span id="textOpt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
-                                        <label for="textOpt2">B.</label><span id="textOpt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
-                                        <label for="textOpt3">C.</label><span id="textOpt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
-                                        <label for="textOpt4">D.</label><span id="textOpt4"> ${quizzes[quizCount - 1].questions[i].options[3]}</span><br>
+                                        <label for="opt1">A.</label><span id="opt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
+                                        <label for="opt2">B.</label><span id="opt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
+                                        <label for="opt3">C.</label><span id="opt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
+                                        <label for="opt4">D.</label><span id="opt4"> ${quizzes[quizCount - 1].questions[i].options[3]}</span><br>
                                     </fieldset><br>`
         }
 
@@ -188,4 +188,26 @@ function takeQuiz() {
     const footer = document.getElementById('footer')
 
     bodyContent.innerHTML = `<h5><span>Taking Quiz: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5><br>`
+
+    for (var i = 0; i < quizzes[quizCount -1].length; i++) {
+        bodyContent.innerHTML += `<fieldset id="question${i + 1}"> 
+                                    <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend>
+                                    <input type="checkbox" id="checkOpt1"><label for="opt1">A.</label><span id="opt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
+                                    <input type="checkbox" id="checkOpt2"><label for="opt2">B.</label><span id="opt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
+                                    <input type="checkbox" id="checkOpt3"><label for="opt3">C.</label><span id="opt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
+                                    <input type="checkbox" id="checkOpt4"><label for="opt4">D.</label><span id="opt4"> ${quizzes[quizCount - 1].questions[i].options[3]}</span><br>
+                                </fieldset>
+                                <p id="errorBox${i + 1}"></p><br>`
+    }
+
+    bodyContent.innerHTML += '<button type="button" onclick="validateAnswers()">Check Answers</button>'
+}
+
+function validateAnswers() {
+    const heading = document.getElementById('heading')
+    const bodyContent = document.getElementById('body-content')
+    const footer = document.getElementById('footer')
+
+    bodyContent.innerHTML = 'vibe checkk'
+    // disable all checkboxes & say which answers are correct
 }
