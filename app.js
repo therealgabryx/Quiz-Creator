@@ -191,7 +191,7 @@ function takeQuiz() {
 
     for (var i = 0; i < quizzes[quizCount -1].length; i++) {
         bodyContent.innerHTML += `<fieldset id="question${i + 1}"> 
-                                    <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend><br><span id="isCorrect"></span><br>
+                                    <legend>Question ${i + 1}: ${quizzes[quizCount - 1].questions[i].questionText}</legend><br><span id="isCorrect${i + 1}"></span><br>
                                     <input type="checkbox" id="checkOpt1Q${i + 1}"><label for="opt1">A.</label><span id="opt1"> ${quizzes[quizCount - 1].questions[i].options[0]}</span><br>
                                     <input type="checkbox" id="checkOpt2Q${i + 1}"><label for="opt2">B.</label><span id="opt2"> ${quizzes[quizCount - 1].questions[i].options[1]}</span><br>
                                     <input type="checkbox" id="checkOpt3Q${i + 1}"><label for="opt3">C.</label><span id="opt3"> ${quizzes[quizCount - 1].questions[i].options[2]}</span><br>
@@ -217,12 +217,31 @@ function checkCorrectAnswers() {
     const bodyContent = document.getElementById('body-content')
     const footer = document.getElementById('footer')
 
-
-
-    var correctAnswers = 0, wrongAnswers = 0;
-
     document.getElementById('quizNameTitle').innerHTML = `<h5><span>Quiz Results</span><br><br><span>Quiz Name: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5>`
-    document.getElementById('buttonCheck').innerHTML = <button type="button" onclick="endQuiz()">End Quiz</button>
+    document.getElementById('buttonCheck').innerHTML = '<button type="button" onclick="endQuiz()">End Quiz</button>'
+
+    var correctAnswers = calcPoints();
+
+    console.log(">> correct answers: ", correctAnswers, " out of ", quizzes[quizCount -1].length)
+}
+
+function calcPoints() {
+    var correctAnswers = 0
+
+    for (let i = 0; i < quizzes[quizCount -1].length; i++) {
+        if ((document.getElementById(`checkOpt1Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[0])) { correctAnswers++ }
+        if ((document.getElementById(`checkOpt2Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[1])) { correctAnswers++ }
+        if ((document.getElementById(`checkOpt3Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[2])) { correctAnswers++ }
+        if ((document.getElementById(`checkOpt4Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[3])) { correctAnswers++ }  
+        
+        if (correctAnswers) {
+            document.getElementById(`isCorrect${i + 1}`).innerHTML = '<span style="color:green;">✔ CORRECT ✔</span><br>'
+        } else {
+            document.getElementById(`isCorrect${i + 1}`).innerHTML = '<span style="color:red;">❌ WRONG ❌</span><br>'
+        }
+    }   
+
+    return correctAnswers
 }
 
 function endQuiz() {

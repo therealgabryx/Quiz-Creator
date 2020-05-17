@@ -17,7 +17,7 @@
 }
 
 #body-content {
-  background-color: cornflowerblue;
+  background-color: azure;
   display: grid;
   grid-area: bd;
 }
