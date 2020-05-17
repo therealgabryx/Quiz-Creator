@@ -4,6 +4,7 @@
 var quizzes = []
 var quizCount = 0
 var questionsTempCount = 0;
+var correctAnswersShared = 0;
 
 function createQuiz() {
     questionsTempCount = 0;
@@ -206,7 +207,7 @@ function takeQuiz() {
 function validateAnswers() {
     if (checkIfCorrectSelection()) { // If only 1 answer per question is selected 
         blankErrorBoxes(); // voids all error boxes 
-        disableCheckBoxes();
+        disableCheckBoxes(); // disables checkboxes
         checkCorrectAnswers();
     }
     // check that all checkboxes have only (1) option selected --> disable all checkboxes & say which answers are correct
@@ -218,14 +219,15 @@ function checkCorrectAnswers() {
     const footer = document.getElementById('footer')
 
     document.getElementById('quizNameTitle').innerHTML = `<h5><span>Quiz Results</span><br><br><span>Quiz Name: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5>`
-    document.getElementById('buttonCheck').innerHTML = '<button type="button" onclick="endQuiz()">End Quiz</button>'
+    document.getElementById('buttonCheck').innerHTML = '<button type="button" onclick="takeAgain()" disabled>Take again</button><button type="button" onclick="endQuiz()">End Quiz</button>'
 
     var correctAnswers = calcPoints();
+    correctAnswersShared = correctAnswers;
 
     console.log(">> correct answers: ", correctAnswers, " out of ", quizzes[quizCount -1].length)
 }
 
-function calcPoints() {
+function calcPoints() { 
     var correctAnswers = 0
 
     for (let i = 0; i < quizzes[quizCount -1].length; i++) {
@@ -244,12 +246,21 @@ function calcPoints() {
     return correctAnswers
 }
 
+function takeAgain() {
+    const heading = document.getElementById('heading')
+    const bodyContent = document.getElementById('body-content')
+    const footer = document.getElementById('footer')
+
+    
+}
+
 function endQuiz() {
     const heading = document.getElementById('heading')
     const bodyContent = document.getElementById('body-content')
     const footer = document.getElementById('footer')
 
-    bodyContent.innerHTML = 'Quiz ended :D'
+    bodyContent.innerHTML = `<h4>Quiz Ended - Recap</h4><br><h5><br><span>Quiz Name: </span><span id="quizName">${quizzes[quizCount - 1].quizName}</span></h5>
+                             <br><br><h5>Correct Answers: <span style="color:green;"><b>${correctAnswersShared}</b></span> out of ${quizzes[quizCount -1].length}</h5>`
 }
 
 function disableCheckBoxes() {
