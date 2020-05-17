@@ -237,9 +237,9 @@ function calcPoints() {
         if ((document.getElementById(`checkOpt3Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[2])) { correctAnswers++; correctAnswersCount++ }
         if ((document.getElementById(`checkOpt4Q${i + 1}`).checked == true) && (quizzes[quizCount - 1].questions[i].checks[3])) { correctAnswers++; correctAnswersCount++ }  
         
-        console.log(`quest: ${i + 1}`, correctAnswersCount)
+        console.log(`quest: ${i + 1}`, correctAnswers)
 
-        if (correctAnswers) {
+        if (correctAnswersCount) {
             document.getElementById(`isCorrect${i + 1}`).innerHTML = '<span style="color:green;">✔ CORRECT ✔</span><br>'
         } else {
             document.getElementById(`isCorrect${i + 1}`).innerHTML = '<span style="color:red;">❌ WRONG ❌</span><br>'
